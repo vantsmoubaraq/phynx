@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<!--    Hospital pharmacy tree view-->
+    <record id="hospital_prescriptions_view_tree" model="ir.ui.view">
+        <field name="name">hospital.prescriptions.view.tree</field>
+        <field name="model">prescription.line</field>
+        <field name="arch" type="xml">
+            <tree string="Prescriptions">
+                <field name="prescription_id"/>
+            </tree>
+        </field>
+    </record>
+<!--Related actuon-->
+    <record id="prescriptions_action" model="ir.actions.act_window">
+        <field name="name">Prescriptions</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">prescription.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create prescription
+            </p>
+            <p>
+                You can create prescriptions here.
+            </p>
+        </field>
+    </record>
+</odoo>

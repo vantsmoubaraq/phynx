@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+<!--
+    <record model="ir.ui.view" id="phynx_careers.list">
+      <field name="name">phynx_careers list</field>
+      <field name="model">phynx_careers.phynx_careers</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+-->
+
+    <!-- actions opening views on models -->
+<!--
+    <record model="ir.actions.act_window" id="phynx_careers.action_window">
+      <field name="name">phynx_careers window</field>
+      <field name="res_model">phynx_careers.phynx_careers</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+-->
+
+    <!-- server action to the one above -->
+<!--
+    <record model="ir.actions.server" id="phynx_careers.action_server">
+      <field name="name">phynx_careers server</field>
+      <field name="model_id" ref="model_phynx_careers_phynx_careers"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": model._name,
+        }
+      </field>
+    </record>
+-->
+
+    <!-- Top menu item -->
+<!--
+    <menuitem name="phynx_careers" id="phynx_careers.menu_root"/>
+-->
+    <!-- menu categories -->
+<!--
+    <menuitem name="Menu 1" id="phynx_careers.menu_1" parent="phynx_careers.menu_root"/>
+    <menuitem name="Menu 2" id="phynx_careers.menu_2" parent="phynx_careers.menu_root"/>
+-->
+    <!-- actions -->
+<!--
+    <menuitem name="List" id="phynx_careers.menu_1_list" parent="phynx_careers.menu_1"
+              action="phynx_careers.action_window"/>
+    <menuitem name="Server to list" id="phynx_careers" parent="phynx_careers.menu_2"
+              action="phynx_careers.action_server"/>
+-->
+  </data>
+</odoo>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_rop">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <h2 style="text-align: center; color: #38c0f2;">ROP Evaluation Report</h2>
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <hr/>
+                            <h5 style="color: grey;">Bio Data <span>&#160;</span>
+                                <strong >Evaluation No:</strong> <t t-esc="form['rop_no']"/></h5>
+                            <div style="display: inline-block; width: 45%;">
+                                <p><strong>Name:</strong> <t t-esc="form['patient_id'][1]"/></p>
+                                <p><strong>Chronological Age in Weeks:</strong> <t t-esc="form['chronological_age']"/> weeks</p>
+                                <p><strong>Exam Date:</strong> <t t-esc="form['date']"/></p>
+                            </div>
+                            <div style="display: inline-block; width: 45%;">
+                                <p><strong>Gestation Age at Birth:</strong> <t t-esc="form['gestation_age']"/> weeks</p>
+                                <p><strong>Most Recent Weight:</strong> <t t-esc="form['most_recent_weight']"/> grams</p>
+                                <p><strong>PMA (chronological age + Gestation age):</strong> <t t-esc="form['pma']"/> weeks</p>
+                            </div>
+                            <hr/>
+                            <h5 style="color: grey;">Clinical History</h5>
+                            <div style="display: inline-block; width: 45%;">
+                                <p><strong>Currently a NICU patient?:</strong> <t t-if="form['nicu']">Yes</t><t t-else="">No</t></p>
+                                <p><strong>Had a blood transfusion?:</strong> <t t-if="form['blood_transfusion']">Yes</t><t t-else="">No</t></p>
+                                <p><strong>Been on CPAP?:</strong> <t t-if="form['cpap']">Yes</t><t t-else="">No</t></p>
+                                
+                            </div>
+                            <div style="display: inline-block; width: 45%;">
+                                <p><strong>Birth Weight:</strong> <t t-esc="form['birth_weight']"/> grams</p>
+                                <p><strong>Been on oxygen for more than one week?:</strong> <t t-if="form['oxygen']">Yes</t><t t-else="">No</t></p>
+                                <p><strong>Been treated for an infection for more than 2 days?:</strong> <t t-if="form['infection']">Yes</t><t t-else="">No</t></p>
+                            </div>
+                            <hr/>
+                            
+                            <h5 style="color: grey;">Exam Findings</h5>
+                            <hr/>
+                            <div style="display: inline-block; width: 45%;">
+                                <h5 style="color: #38c0f2;">Right Eye</h5>
+                                <p><strong>Zone:</strong> <t t-esc="form['right_zone']"/></p>
+                                <p><strong>Stage:</strong> <t t-esc="form['right_stage']"/></p>
+                                <p><strong>Pre-Plus:</strong> <t t-if="form['right_pre_plus']">Yes</t><t t-else="">No</t></p>
+                                <p><strong>Plus:</strong> <t t-if="form['right_plus']">Yes</t><t t-else="">No</t></p>
+                                <p><strong>AROP:</strong> <t t-if="form['right_arop']">Yes</t><t t-else="">No</t></p>
+                            </div>
+                            <div style="display: inline-block; width: 45%;">
+                                <h5 style="color: #38c0f2;">Left Eye</h5>
+                                <p><strong>Zone:</strong> <t t-esc="form['left_zone']"/></p>
+                                <p><strong>Stage:</strong> <t t-esc="form['left_stage']"/></p>
+                                <p><strong>Left Pre-Plus:</strong> <t t-if="form['left_pre_plus']">Yes</t><t t-else="">No</t></p>
+                                <p><strong>Plus:</strong> <t t-if="form['left_plus']">Yes</t><t t-else="">No</t></p>
+                                <p><strong>AROP:</strong> <t t-if="form['left_arop']">Yes</t><t t-else="">No</t></p>
+                            </div>    
+                        </div>
+                    </div>
+                    <hr/>
+                    <p><strong>Comments:</strong> <span style="color: #38c0f2;"><t t-esc="form['Comments']"/></span></p>
+                    <hr/>
+                    <p><strong>Images:</strong>
+                        <t t-foreach="form['attachment']" t-as="attachment">
+                            <a t-attf-href="/web/content/{{ attachment }}" t-attf-title="{'type': 'binary', 'id': attachment}"><t t-esc="attachment"/></a><span>&#160;</span>
+                        </t>
+                    </p>
+                    <hr/>
+                    <p><strong>Plan:</strong> <t t-esc="form['Plan']"/><t t-if="form['Plan'] == 'Need review'">
+                        <span>&#160;</span>
+                        <strong>Review Date:</strong> <t t-esc="form['review_date']"/>
+                        <span>&#160;</span>
+                        <strong>In charge:</strong> Doctor <t t-esc="form['in_charge']"/>
+                    </t></p>
+                    <hr/>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

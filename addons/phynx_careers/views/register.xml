@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!--form view-->
+    <record id="view_register_start_form" model="ir.ui.view">
+        <field name="name">register.start.form</field>
+        <field name="model">register.start</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                        <button name="action_view_record"
+                        type="object"
+                        string="More Info"
+                        class="oe_highlight"
+                        invisible="((reason not in ['Applicant', 'New Client','Supplier', 'Partner', 'Personal']))"/>
+                    </header>
+                <sheet>
+                    
+                    <group>
+                    <group>
+                        <field name="reason"/> 
+                        <field name="clock_time"/>
+                    </group>
+                    <group>
+                        <field name="client_name" invisible="reason not in ['Applicant', 'New Client','']"/>
+                         <field name="person" invisible="reason not in ['Supplier', 'Partner', 'Personal']"/>
+                        <field name="other_reasons"/>      
+                    </group>
+                </group>
+                </sheet>
+                
+            </form>
+        </field>
+    </record>
+
+    
+
+
+    <!--tree view-->
+    <record id="view_phynx_career_tree" model="ir.ui.view">
+        <field name="name">register.start.tree</field>
+        <field name="model">register.start</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="True">
+                <field name="reg_no"/>
+               <field name="client_name"/>
+                <field name="person"/>
+                <field name="display_time"/>
+                <field name="reason"/>
+                <field name="other_reasons"/>     
+            </tree>
+        </field>
+    </record>
+
+    <record id="register_start_search_view" model="ir.ui.view">
+    <field name="name">register.start.search</field>
+    <field name="model">register.start</field>
+    <field name="arch" type="xml">
+        <search>
+            <filter name="filter_today_records"
+                    string="Today"
+                    domain="[('create_date', '>=', context_today())]"/>
+        </search>
+    </field>
+    </record>
+
+    <!--category
+    <record id="phynx_career_category" model="ir.module.category">
+        <field name="name">Phynx Careers</field>
+        <field name="sequence">20</field>
+    </record>-->
+
+    <!--action-->
+    <record id="action_register_start" model="ir.actions.act_window">
+        <field name="name">Register</field>
+        <field name="res_model">register.start</field>
+        <field name="view_mode">tree,form,search</field>
+        
+    </record>
+
+   
+    
+    <menuitem id="menu_register_under_phynx"
+          name="Register"
+          parent="menu_phynx_careers_root"
+          action="action_register_start"
+          sequence="0"/>
+
+     
+
+</odoo>

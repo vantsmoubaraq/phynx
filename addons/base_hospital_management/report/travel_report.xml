@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    Patient lab test report action-->
+    <record id="report_travel" model="ir.actions.report">
+        <field name="name">Travel Report</field>
+        <field name="model">patient.lab.test</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">base_hospital_management.report_travel_patient</field>
+        <field name="report_file">base_hospital_management.report_travel_patient</field>
+        <field name="binding_model_id" ref="model_patient_lab_test"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

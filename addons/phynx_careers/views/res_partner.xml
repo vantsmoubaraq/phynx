@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!--form view-->
+    <record id="view_phynx_career_form" model="ir.ui.view">
+        <field name="name">phynx.career.form</field>
+        <field name="model">phynx.career</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <!--<button name="action_view_applications"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-pencil-square-o"
+                        string="Applications"
+                        invisible="name == False"/>-->
+                        <button name="action_view_invoices"
+                        type="object" class="oe_stat_button"
+                        icon="fa-file-text-o" string="Invoices"
+                        invisible="name == False" />
+                        <button name="schedule_meeting"
+                        type="object" class="oe_stat_button"
+                        icon="fa-calendar"  string="Meeting"
+                        invisible="name == False" />
+                    </div>
+                    <field name="image_1920" widget="image" class="oe_avatar"/>
+                     <div class="col-12 mb-3">
+                        <field name="name" placeholder="Name" string="Name" required="1" style="width:75%; font-size:24px; margin-left: 10px;"/>
+                    </div>
+                    <group>
+                        <group>
+                           
+                            <field name="dob"/>
+                            <field name="phone" widget="phone"/>
+                            <field name="mobile" widget="phone"/>
+                        </group>
+                        <group>
+                            <field name="age"/>
+                            <field name="email"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="Address">
+                            <div class="o_address_format">
+                                <field name="street" placeholder="Street..." class="o_address_street"/>
+                                <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                <field name="city" placeholder="City" class="o_address_city" />
+                                <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}"  context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
+                                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                <div name="partner_address_country" class="d-flex justify-content-between">
+                                    <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}" />
+                                </div>
+                            </div>
+                        </page>
+                        <page name="Applications" string="Applications">
+                            <field name="applications" context="{'default_partner_name': name, 'default_email_cc': email, 'default_partner_phone': phone
+                            }" >
+                             <tree string="Applications"  decoration-info="True" class="hover-warning">
+                                <field name="partner_name"/>
+                                <field name="name"/>
+                                <field name="create_date"/>
+                                <field name="stage_id"/>
+                                <button name="copy"
+                                    type="object"
+                                    icon="fa-copy"
+                                    help="Duplicate this application line"/>
+                            </tree>
+                           
+                            </field>
+                        </page>
+                        
+                        <page name="internal_notes" string="Internal Notes">
+                            <field name="comment" placeholder="Internal notes..."/>
+                        </page>
+                    </notebook>
+                    
+                </sheet>
+                <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                </div>
+                
+            </form>
+        </field>
+    </record>
+
+    <!--kanban-->
+    <record id="kanban_phynx_career" model="ir.ui.view">
+    <field name="name">phynx.career.kanban</field>
+    <field name="model">phynx.career</field>
+    <field name="priority" eval="1"/>
+    <field name="arch" type="xml">
+        <kanban sample="1">
+            <field name="partner_id"/>
+            <field name="is_company"/>
+            <field name="parent_id"/>
+            <field name="image_1920"/>
+            <field name="name"/>
+            <field name="age"/>
+            <field name="phone"/>
+            <field name="email"/>
+            <field name="active"/>
+
+            <templates>
+                <t t-name="kanban-box">
+                    <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
+
+                        <!-- Individual avatar image logic -->
+                        <t t-if="!record.is_company.raw_value">
+                            <t t-set="avatar_image" t-value="kanban_image('res.partner', 'avatar_128', record.partner_id.raw_value)"/>
+                            <div class="o_kanban_image_fill_left d-none d-md-block">
+                                <img t-att-src="avatar_image" t-att-alt="record.partner_id.value"/>
+                                <img class="o_kanban_image_inner_pic"
+                                     t-if="record.parent_id.raw_value"
+                                     t-att-alt="record.parent_id.value"
+                                     t-att-src="kanban_image('res.partner', 'avatar_128', record.parent_id.raw_value)"/>
+                            </div>
+                            <div class="o_kanban_image d-md-none d-block">
+                                <img t-att-src="avatar_image" t-att-alt="record.partner_id.value"/>
+                                <img class="o_kanban_image_inner_pic"
+                                     t-if="record.parent_id.raw_value"
+                                     t-att-alt="record.parent_id.value"
+                                     t-att-src="kanban_image('res.partner', 'avatar_128', record.parent_id.raw_value)"/>
+                            </div>
+                        </t>
+
+                        <!-- Company image fallback -->
+                        <t t-else="">
+                            <div class="o_kanban_image_fill_left d-none d-md-block o_kanban_image_full">
+                                <img t-att-src="kanban_image('res.partner', 'avatar_128', record.partner_id.raw_value)" role="img" t-att-alt="record.partner_id.value"/>
+                            </div>
+                            <div class="o_kanban_image d-md-none d-block o_kanban_image_full">
+                                <img t-att-src="kanban_image('res.partner', 'avatar_128', record.partner_id.raw_value)" role="img" t-att-alt="record.partner_id.value"/>
+                            </div>
+                        </t>
+
+                        <!-- Ribbon if archived -->
+                        <div class="ribbon ribbon-top-right" t-if="!record.active.raw_value">
+                            <span class="text-bg-danger">Archived</span>
+                        </div>
+
+                        <!-- Right-side details -->
+                        <div class="oe_kanban_details d-flex flex-column justify-content-between">
+                            <div>
+                                <strong class="o_kanban_record_title oe_partner_heading">
+                                    <field name="name"/>
+                                </strong>
+                                <ul>
+                                    <li t-if="record.age.raw_value">Age: <field name="age"/></li>
+                                    <li t-if="record.phone.raw_value">Phone: <field name="phone"/></li>
+                                    <li t-if="record.email.raw_value">Email: <field name="email"/></li>
+                                </ul>
+                            </div>
+                            <div class="o_kanban_record_bottom">
+                                <div class="oe_kanban_bottom_left"/>
+                                <div class="oe_kanban_bottom_right"/>
+                            </div>
+                        </div>
+
+                    </div>
+                </t>
+            </templates>
+        </kanban>
+    </field>
+</record>
+
+
+
+
+    <!--tree view-->
+    <record id="view_phynx_career_tree" model="ir.ui.view">
+        <field name="name">phynx.career.tree</field>
+        <field name="model">phynx.career</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="dob"/>
+                <field name="age"/>
+                <field name="phone"/>
+                <field name="email"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--category-->
+    <record id="phynx_career_category" model="ir.module.category">
+        <field name="name">Phynx Careers</field>
+        <field name="sequence">20</field>
+    </record>
+
+    <!--action-->
+    <record id="action_phynx_career" model="ir.actions.act_window">
+        <field name="name">Clients</field>
+        <field name="res_model">phynx.career</field>
+        <field name="view_mode">kanban,tree,form</field>
+        
+    </record>
+
+    <menuitem id="menu_phynx_careers_root" name="Phynx Careers"/>
+    <menuitem id="menu_applicants" name="Clients" action="action_phynx_career" parent="menu_phynx_careers_root" sequence="1"/>
+    <menuitem id="menu_recruitment_under_phynx"
+          name="Recruitment"
+          parent="menu_phynx_careers_root"
+          action="hr_recruitment.action_hr_job"
+          sequence="2"/>
+    <menuitem id="menu_meeting_under_phynx"
+          name="Meetings"
+          parent="menu_phynx_careers_root"
+          action="calendar.action_calendar_event"
+          sequence="3"/>
+    
+    <menuitem id="menu_payments_under_phynx"
+          name="Payments"
+          parent="menu_phynx_careers_root"
+          action="account.action_account_payments"
+          sequence="4"/>
+
+    
+    <menuitem id="menu_sales_under_phynx"
+          name="Sales"
+          parent="menu_phynx_careers_root"
+          action="crm.crm_lead_action_pipeline"
+          sequence="5"/>
+    
+    <menuitem id="menu_expenses_under_phynx"
+          name="Expenses"
+          parent="menu_phynx_careers_root"
+          action="hr_expense.hr_expense_actions_my_all"
+          sequence="6"/>
+
+     
+
+</odoo>

@@ -1,0 +1,14 @@
+/* Make warning rows gold instead of orange */
+.o_list_view .o_data_row.o_list_decoration_warning {
+    color: brown !important;  /* keep text readable */
+}
+
+/* Default row = info */
+.o_list_view .o_data_row.decoration-info {
+    background-color: #d9edf7; /* info-like */
+}
+
+/* On hover = warning */
+.o_list_view .o_data_row.decoration-info:hover {
+    background-color: #fcf8e3; /* warning-like */
+}

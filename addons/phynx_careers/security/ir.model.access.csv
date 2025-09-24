@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_phynx_career_user,phynx.career,model_phynx_career,base.group_user,1,1,1,1
+access_phynx_experience_user,phynx.experience,model_phynx_experience,base.group_user,1,1,1,1
+access_phynx_education_user,phynx.education,model_phynx_education,base.group_user,1,1,1,1
+access_phynx_certification_user,phynx.certification,model_phynx_certification,base.group_user,1,1,1,1
+access_phynx_project_user,phynx.project,model_phynx_project,base.group_user,1,1,1,1
+access_phynx_referee_user,phynx.referee,model_phynx_referee,base.group_user,1,1,1,1
+access_register_start_user,register.start,model_register_start,base.group_user,1,1,1,1
+

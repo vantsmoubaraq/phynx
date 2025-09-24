@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Inherit hr.applicant form view to add Education tab -->
+    <record id="view_hr_applicant_form_education" model="ir.ui.view">
+        <field name="name">hr.applicant.form.education</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='application_summary']" position="after">
+                <page string="Education" name="education">
+                    <field name="education_ids">
+                        <tree>
+                            <field name="degree"/>
+                            <field name="institution"/>
+                            <field name="start_year"/>
+                            <field name="end_year"/>
+                            <field name="honors"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="degree"/>
+                                <field name="institution"/>
+                                <field name="start_year"/>
+                                <field name="end_year"/>
+                                <field name="honors"/>
+                            </group>
+                        </form>
+                    </field>
+                </page>
+                <page name="Experience">
+                    <field name="experience_ids">
+                        <tree>
+                            <field name="job_title"/>
+                            <field name="company"/>
+                            <field name="start_date"/>
+                            <field name="end_date"/>
+                            <field name="responsibilities"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="job_title"/>
+                                <field name="company"/>
+                                <field name="start_date"/>
+                                <field name="end_date"/>
+                                <field name="responsibilities"/>
+                            </group>
+                        </form>
+                    </field>
+                </page>
+                <page name="certifications" string="Certifications">
+                    <field name="certification_ids">
+                        <tree>
+                            <field name="name"/>
+                            <field name="institution"/>
+                            <field name="date_received"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="name"/>
+                                <field name="institution"/>
+                                <field name="date_received"/>
+                            </group>
+                        </form>
+                    </field>
+                </page>
+                <page name="projects" string="Projects">
+                    <field name="project_ids">
+                        <tree>
+                            <field name="title"/>
+                            <field name="tools_used"/>
+                            <field name="link"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="title"/>
+                                <field name="description"/>
+                                <field name="tools_used"/>
+                                <field name="link"/>
+                            </group>
+                        </form>
+                </field>
+            </page>
+            <page name="referees" string="Referees">
+                <field name="referee_ids">
+                    <tree>
+                        <field name="name"/>
+                        <field name="position"/>
+                        <field name="company"/>
+                        <field name="email"/>
+                        <field name="phone"/>
+                    </tree>
+                    <form>
+                        <group>
+                            <field name="name"/>
+                            <field name="position"/>
+                            <field name="company"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                        </group>
+                    </form>
+                </field>
+            </page>
+
+
+
+            </xpath>
+            <xpath expr="//button[@name='create_employee_from_applicant']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <header position="inside">
+                <button name="print_cv_report"
+                        type="object"
+                        string="Print CV"
+                        class="btn-primary"
+                        icon="fa-print"/>
+            </header>
+            <field name="email_from" position="replace">
+                <field name="email_from" invisible="1"/>
+            </field>
+            <field name="type_id" position="replace">
+                <field name="type_id" invisible="1"/>
+            </field>
+            <field name="interviewer_ids" position="replace">
+                <field name="interviewer_ids" invisible="1"/>
+            </field>
+            <field name="medium_id" position="replace">
+                <field name="medium_id" invisible="1"/>
+            </field>
+            <field name="categ_ids" position="replace">
+                <field name="categ_ids" invisible="1"/>
+            </field>
+            <field name="department_id" position="replace">
+                <field name="department_id" invisible="1"/>
+            </field>
+           
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- ===================== -->
+    <!-- QWeb Report Template -->
+    <!-- ===================== -->
+    <template id="report_cv_template">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="applicant">
+                    <div class="page">
+                        <div style="width:100%; overflow:hidden; margin-bottom:20px;">
+
+                            <!-- Left side: Headings and paragraphs -->
+                            <div style="float:left; width:80%;">
+                                <h1 style="color:#2c3e50; margin:0;">Curriculum Vitae</h1>
+                                <h2 style="margin:5px 0 0 0;"><t t-esc="applicant.partner_name"/></h2>
+                                <p style="margin:2px 0;"><t t-esc="applicant.email_cc"/> | <t t-esc="applicant.partner_phone"/></p>
+                                <p style="margin:2px 0;"><strong>Position Applied:</strong> <t t-esc="applicant.job_id.name"/></p>
+                            </div>
+
+                            <!-- Right side: Applicant photo -->
+                            <t t-if="applicant.application_id.image_1920">
+                                <div style="float:right; width:20%; text-align:right;">
+                                    <img t-att-src="'data:image/png;base64,' + applicant.application_id.image_1920.decode('utf-8')"
+                                         style="max-height:100px; height:auto; width:auto;"/>
+                                </div>
+                            </t>
+
+                        </div>
+
+                        <t t-if="applicant.education_ids">
+                            <hr/>
+                            <h3 style="color: #34495e;">
+                                <img src="/phynx_careers/static/src/img/education.png" style="width: 32px; height: 32px; margin-right: 10px;"/>Education
+                            </h3>
+                            <ul style="margin-left: 20px;">
+                                <t t-foreach="applicant.education_ids" t-as="edu">
+                                    <li style="margin-bottom: 8px;">
+                                        <strong><t t-esc="edu.degree"/></strong> – <t t-esc="edu.institution"/>
+                                        (<t t-esc="edu.start_year"/> – <t t-esc="edu.end_year"/>)
+                                        <br/><i><t t-esc="edu.honors"/></i>
+                                    </li>
+                                </t>
+                            </ul>
+                        </t>
+
+                        <t t-if="applicant.experience_ids">
+                            <h3 style="color: #34495e;">
+                                <img src="/phynx_careers/static/src/img/experience.png" style="width: 27px; height: 27px; margin-right: 10px;"/>Experience
+                            </h3>
+                            <ul style="margin-left: 20px;">
+                                <t t-foreach="applicant.experience_ids" t-as="exp">
+                                    <li style="margin-bottom: 8px;">
+                                        <strong><t t-esc="exp.job_title"/></strong> at <t t-esc="exp.company"/>
+                                        (<t t-esc="exp.start_date"/> – <t t-esc="exp.end_date"/>)
+                                        <br/><t t-esc="exp.responsibilities"/>
+                                    </li>
+                                </t>
+                            </ul>
+                        </t>
+
+                        <t t-if="applicant.certification_ids">
+                            <h3 style="color: #34495e;">
+                                <img src="/phynx_careers/static/src/img/certification.png" style="width: 32px; height: 32px; margin-right: 5px;"/> Certifications
+                            </h3>
+                            <ul style="margin-left: 20px;">
+                                <t t-foreach="applicant.certification_ids" t-as="cert">
+                                    <li style="margin-bottom: 5px;">
+                                        <strong><t t-esc="cert.name"/></strong> – <t t-esc="cert.institution"/>
+                                        (<t t-esc="cert.date_received"/>)
+                                    </li>
+                                </t>
+                            </ul>
+                        </t>
+
+                        <t t-if="applicant.project_ids">
+                            <h3 style="color: #34495e;">
+                                <img src="/phynx_careers/static/src/img/project.png" style="width: 30px; height: 30px; margin-right: 10px;"/> Projects
+                            </h3>
+                            <ul style="margin-left: 20px;">
+                                <t t-foreach="applicant.project_ids" t-as="proj">
+                                    <li style="margin-bottom: 10px;">
+                                        <strong><t t-esc="proj.title"/></strong><br/>
+                                        <t t-esc="proj.description"/><br/>
+                                        <i>Tools: <t t-esc="proj.tools_used"/></i><br/>
+                                        <a t-att-href="proj.link" style="color: #3498db;"><t t-esc="proj.link"/></a>
+                                    </li>
+                                </t>
+                            </ul>
+                        </t>
+
+                        <t t-if="applicant.referee_ids">
+                            <h3 style="color: #34495e;">
+                                <img src="/phynx_careers/static/src/img/referee.png" style="width: 32px; height: 32px; margin-right: 10px;"/> Referees
+                            </h3>
+                            <ul style="margin-left: 20px;">
+                                <t t-foreach="applicant.referee_ids" t-as="ref">
+                                    <li style="margin-bottom: 8px;">
+                                        <strong><t t-esc="ref.name"/></strong> – <t t-esc="ref.position"/>, <t t-esc="ref.company"/><br/>
+                                        Email: <t t-esc="ref.email"/> | Phone: <t t-esc="ref.phone"/>
+                                    </li>
+                                </t>
+                            </ul>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <!-- ===================== -->
+
+    <record id="action_report_cv" model="ir.actions.report">
+        <field name="name">Applicant CV</field>
+        <field name="model">hr.applicant</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">phynx_careers.report_cv_template</field>
+        <field name="print_report_name">'CV - %s' % (object.partner_name or 'Applicant')</field>
+    </record>
+
+</odoo>

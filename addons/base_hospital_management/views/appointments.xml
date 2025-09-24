@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!--<record id="appointments_list_view" model="ir.ui.view">
+        <field name="name">appointments.list.search</field>
+        <field name="model">appointments.list</field>
+        <field name="arch" type="xml">
+            <search>
+            <field name="name"/>
+            <field name="start_time"/>
+            <field name="this_week_domain"/>
+            <filter string="This Week's Appointments" name="filter_this_week_records" domain="[('start_time', '>=', this_week_domain)]" />
+            </search> 
+        </field>
+   </record>-->
+    <record id="action_execute_telemedicine" model="ir.actions.server">
+        <field name="name">Refresh Appointments</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_appointments_list"/>
+        <field name="binding_model_id" ref="model_appointments_list"/>
+        <field name="state">code</field>
+        <field name="code">model.telemedicine()</field>
+    </record>
+    <record id="appointments_action" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">appointments.list</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'telemedicine': True}</field>
+        
+    </record>
+     
+    <record id="appointments_view" model="ir.ui.view">
+        <field name="name">appointments.tree</field>
+        <field name="model">appointments.list</field>
+        <field name="arch" type="xml">
+            <tree>
+                <header>
+                    <button name="telemedicine" type="object" string="Refresh"/>
+                    
+                </header>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="event_type"/>
+                <field name="location"/>
+                <field name="start_time"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

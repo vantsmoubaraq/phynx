@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    Patient lab test report action-->
+    <record id="report_rop_action" model="ir.actions.report">
+        <field name="name">ROP Evaluation Report</field>
+        <field name="model">rop.evaluation</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">base_hospital_management.report_rop</field>
+        <field name="report_file">base_hospital_management.report_rop</field>
+        <field name="binding_model_id" ref="model_rop_evaluation"/>
+        <field name="binding_type">report</field>
+    </record>
+</odoo>

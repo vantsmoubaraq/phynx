@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--    Patient lab test report template-->
+    <template id="report_travel_patient">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    
+                    <t t-foreach="docs" t-as="doc">
+                    
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h2 style="color: #28a3d7;">TRAVEL MEDICAL CERTIFICATE</h2>
+                            </div>
+                    </div>
+                    <img t-att-src="'data:image/png;base64,%s' % (doc.patient_id.image_1920 and doc.patient_id.image_1920.decode('utf-8') or '')" style="width: 100px; height: 100px; margin-bottom: 5px; float: right;"/>
+                        <h5 style=" margin-left: 0px; margin-top: 30px;">Name: <t t-esc="doc.patient_id.name"/></h5>
+                            <table class="table table-sm">
+                                <tbody>
+                                    <t t-foreach="doc" t-as="result">
+                                        
+                                        <tr>
+                                            <td>Gender</td>
+                                            <td><t t-esc="result.patient_id.gender"/></td>
+                                        </tr>
+                                        
+                                        <tr>
+                                            <td>Age</td>
+                                            <td><t t-esc="result.patient_id.age"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mobile Phone</td>
+                                            <td><t t-esc="result.patient_id.phone"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Agency</td>
+                                            <td><t t-esc="result.agency"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Issue Date</td>
+                                            <td><t t-esc="result.issue_date"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Expiry Date</td>
+                                            <td><t t-esc="result.expiry_date"/></td>
+                                        </tr>
+                                        
+                                    </t>
+                                </tbody>
+                            </table>
+                        <t t-if="doc.state == 'draft'">
+                            <p>Results are only visible for non-draft states.</p>
+                        </t>
+                        <t t-if="doc.state != 'draft'">
+                            
+                            <h5>Lab Results</h5>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Test ID</th>
+                                        <th>Normal</th>
+                                        <th>Result</th>
+                                        <th>Unit</th>
+                                        <th>Attachment</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.result_ids" t-as="result">
+                                        <tr>
+                                            <td><t t-esc="result.test_id.name"/></td>
+                                            <td><t t-esc="result.normal"/></td>
+                                            <td><t t-esc="result.result"/></td>
+                                            <td><t t-esc="result.uom_id.name"/></td>
+                                            <td><t t-esc="result.attachment"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                            <h5>Physical Examination</h5>
+                            <table class="table table-sm">
+                                <tbody>
+                                    <t t-foreach="doc" t-as="result">
+                                        
+                                        <tr>
+                                            <td>Right Eye</td>
+                                            <td><t t-esc="result.right_eye"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Left Eye</td>
+                                            <td><t t-esc="result.left_eye"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Right Ear</td>
+                                            <td><t t-esc="result.right_ear"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Left Ear</td>
+                                            <td><t t-esc="result.left_ear"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Right Leg</td>
+                                            <td><t t-esc="result.right_leg"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Left leg</td>
+                                            <td><t t-esc="result.left_leg"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Right Arm</td>
+                                            <td><t t-esc="result.right_arm"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Left Arm</td>
+                                            <td><t t-esc="result.left_arm"/></td>
+                                        </tr>
+                                        
+                                    </t>
+                                </tbody>
+                            </table>
+                            <h5>Vitals</h5>
+                            <table class="table table-sm">
+                                <tbody>
+                                    <t t-foreach="doc" t-as="result">
+                                        <tr>
+                                            <td>Blood Pressure</td>
+                                            <td><t t-esc="result.blood_pressure"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pulse</td>
+                                            <td><t t-esc="result.pulse"/></td>
+                                        </tr>
+                                        
+                                    </t>
+                                </tbody>
+                            </table>
+                            <h5>Other</h5>
+                            <table class="table table-sm">
+                                <tbody>
+                                    <t t-foreach="doc" t-as="result">
+                                        <tr>
+                                            <td>Weight</td>
+                                            <td><t t-esc="result.weight"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Height</td>
+                                            <td><t t-esc="result.height"/></td>
+                                        </tr>
+                                        
+                                    </t>
+                                </tbody>
+                            </table>
+                        </t>
+                    <p>Doctors Comments:<span style="color: #28a3d7;"><t t-esc="doc.comments" /></span></p>
+                    <p> This document is confidential and only belongs to the above mentioned medical facility</p>
+                </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
