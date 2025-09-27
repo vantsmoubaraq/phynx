@@ -25,28 +25,24 @@ class Register(models.Model):
                               help='Sequence number of the register', copy=False,
                               readonly=True, index=True,
                               default=lambda self: 'New')
-    #display_time = fields.Char(string="Time", compute='_compute_display_time', store=False)
-    today_date = fields.Date(
-        string="Today Date",
-        compute="_compute_today_date",
-        store=False,  # optional; don't store in DB, always computed #field matchs context_today in the filter
+    display_date = fields.Date(
+        string="Display Date",
+        compute="_compute_display_date",
+        store=True,  # store=True if you want it saved in DB
     )
 
-    def _compute_today_date(self):
-        for record in self:
-            # Returns datetime.date object in user's timezone
-            record.today_date = fields.Date.context_today(record)
+    
 
-    """@api.depends("clock_time")
-    def _compute_display_time(self):
-        for record in self:
-            if record.clock_time:
-                # Convert UTC -> user local time
-                local_dt = fields.Datetime.context_timestamp(record, record.clock_time)
-                # Format as HH:MM (24-hour)
-                record.display_time = local_dt.strftime("%H:%M")
+    @api.depends('clock_time')
+    def _compute_display_date(self):
+        for rec in self:
+            if rec.clock_time:
+                # Convert UTC datetime to user-local datetime first
+                local_dt = fields.Datetime.context_timestamp(rec, rec.clock_time)
+                # Take only the date part
+                rec.display_date = local_dt.date()
             else:
-                record.display_time = False"""
+                rec.display_date = False
 
     @api.model
     def create(self, vals):
