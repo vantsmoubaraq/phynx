@@ -26,6 +26,16 @@ class Register(models.Model):
                               readonly=True, index=True,
                               default=lambda self: 'New')
     #display_time = fields.Char(string="Time", compute='_compute_display_time', store=False)
+    today_date = fields.Date(
+        string="Today Date",
+        compute="_compute_today_date",
+        store=False,  # optional; don't store in DB, always computed #field matchs context_today in the filter
+    )
+
+    def _compute_today_date(self):
+        for record in self:
+            # Returns datetime.date object in user's timezone
+            record.today_date = fields.Date.context_today(record)
 
     """@api.depends("clock_time")
     def _compute_display_time(self):
