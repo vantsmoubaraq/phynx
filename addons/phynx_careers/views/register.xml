@@ -58,8 +58,7 @@
         <search>
             <filter name="filter_today_records"
                     string="Today"
-                    domain="[('display_date', '>=', context_today())]"
-                    default="1"/>
+                    domain="[('display_date', '>=', context_today())]"/>
         </search>
     </field>
     </record>
@@ -75,7 +74,7 @@
         <field name="name">Register</field>
         <field name="res_model">register.start</field>
         <field name="view_mode">tree,form,search</field>
-        
+        <field name="context">{'search_default_filter_today_records': 1}</field>
     </record>
 
    
