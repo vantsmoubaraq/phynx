@@ -44,7 +44,7 @@
                 <field name="reg_no"/>
                <field name="client_name"/>
                 <field name="person"/>
-                <field name="display_time"/>
+                <field name="clock_time"/>
                 <field name="reason"/>
                 <field name="other_reasons"/>     
             </tree>
@@ -58,7 +58,7 @@
         <search>
             <filter name="filter_today_records"
                     string="Today"
-                    domain="[('create_date', '>=', context_today())]"/>
+                    domain="[('clock_time', '>=', context_today())]"/>
         </search>
     </field>
     </record>

@@ -6,8 +6,13 @@ class Register(models.Model):
 
     client_name = fields.Many2one('phynx.career')
     person = fields.Many2one("res.partner")
-    clock_time = fields.Datetime("Clock In Time", readonly=True,
-        default=fields.Datetime.now,)
+    clock_time = fields.Datetime(
+        "Clock In Time",
+        readonly=True,
+        default=lambda self: fields.Datetime.to_string(
+        fields.Datetime.context_timestamp(self, fields.Datetime.now())
+    ),
+    )
     reason = fields.Selection(
         [("Applicant", "Applicant"),
          ("New Client", "New Client"),
@@ -20,15 +25,18 @@ class Register(models.Model):
                               help='Sequence number of the register', copy=False,
                               readonly=True, index=True,
                               default=lambda self: 'New')
-    display_time = fields.Char(string="Time", compute='_compute_display_time', store=False)
+    #display_time = fields.Char(string="Time", compute='_compute_display_time', store=False)
 
+    """@api.depends("clock_time")
     def _compute_display_time(self):
         for record in self:
             if record.clock_time:
-                # Format the datetime to a string showing only the time (e.g., "15:55:00")
-                record.display_time = fields.Datetime.to_string(record.clock_time)[11:16]
+                # Convert UTC -> user local time
+                local_dt = fields.Datetime.context_timestamp(record, record.clock_time)
+                # Format as HH:MM (24-hour)
+                record.display_time = local_dt.strftime("%H:%M")
             else:
-                record.display_time = False
+                record.display_time = False"""
 
     @api.model
     def create(self, vals):
