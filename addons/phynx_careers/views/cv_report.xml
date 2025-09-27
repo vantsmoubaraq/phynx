@@ -29,7 +29,7 @@
 
                         </div>
 
-                        <hr style="solid #ccc; margin: 20px 0;"/>
+                        <hr style="border: 0; border-top: 1px solid #d8d8d8; margin: 15px 0;"/>
 
                         <t t-if="applicant.education_ids">
                             <h3 style="color: #34495e;">
