@@ -58,7 +58,7 @@
         <search>
             <filter name="filter_today_records"
                     string="Today"
-                    domain="[('clock_time', '>=', context_today())]"/>
+                    domain="[('today_date', '>=', context_today())]"/>
         </search>
     </field>
     </record>
