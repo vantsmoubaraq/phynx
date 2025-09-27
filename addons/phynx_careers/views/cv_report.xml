@@ -29,8 +29,9 @@
 
                         </div>
 
+                        <hr style="solid #ccc; margin: 20px 0;"/>
+
                         <t t-if="applicant.education_ids">
-                            <hr/>
                             <h3 style="color: #34495e;">
                                 <img src="/phynx_careers/static/src/img/education.png" style="width: 32px; height: 32px; margin-right: 10px;"/>Education
                             </h3>
