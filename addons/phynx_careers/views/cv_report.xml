@@ -16,6 +16,7 @@
                                 <h1 style="color:#2c3e50; margin:0;">Curriculum Vitae</h1>
                                 <h2 style="margin:5px 0 0 0;"><t t-esc="applicant.partner_name"/></h2>
                                 <p style="margin:2px 0;"><t t-esc="applicant.email_cc"/> | <t t-esc="applicant.partner_phone"/></p>
+                                <p style="margin:2px 0;"><t t-if="applicant.application_id.city"><t t-esc="applicant.application_id.city"/></t> , <t t-if="applicant.application_id.country_id.name"><t t-esc="applicant.application_id.country_id.name"/></t></p>
                                 <p style="margin:2px 0;"><strong>Position Applied:</strong> <t t-esc="applicant.job_id.name"/></p>
                             </div>
 
@@ -30,6 +31,15 @@
                         </div>
 
                         <hr style="border: 0; border-top: 1px solid #d8d8d8; margin: 15px 0;"/>
+                        <t t-if="applicant.description">
+                            <h3 style="color: #34495e;">
+                                <img src="/phynx_careers/static/src/img/professional_resume2.png" style="width: 32px; height: 32px; margin-right: 10px;"/> Professional Summary
+                            </h3>
+                            <div style="margin-left: 40px;">
+                                <t t-esc="applicant.description"/>
+                            </div>
+                                   
+                        </t>
 
                         <t t-if="applicant.education_ids">
                             <h3 style="color: #34495e;">
@@ -41,6 +51,21 @@
                                         <strong><t t-esc="edu.degree"/></strong> – <t t-esc="edu.institution"/>
                                         (<t t-esc="edu.start_year"/> – <t t-esc="edu.end_year"/>)
                                         <br/><i><t t-esc="edu.honors"/></i>
+                                    </li>
+                                </t>
+                            </ul>
+                        </t>
+
+                        <t t-if="applicant.skill_ids">
+                            <h3 style="color: #34495e;">
+                                <img src="/phynx_careers/static/src/img/education.png" style="width: 32px; height: 32px; margin-right: 10px;"/>Skills
+                            </h3>
+                            <ul style="margin-left: 20px;">
+                                <t t-foreach="applicant.skill_ids" t-as="skill">
+                                    <li style="margin-bottom: 8px;">
+                                        <t t-esc="skill.name"/>
+                                        <!--(<t t-esc="edu.start_year"/> – <t t-esc="edu.end_year"/>)
+                                        <br/><i><t t-esc="edu.honors"/></i>-->
                                     </li>
                                 </t>
                             </ul>
@@ -104,6 +129,7 @@
                                 </t>
                             </ul>
                         </t>
+                        
                     </div>
                 </t>
             </t>

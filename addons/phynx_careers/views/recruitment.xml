@@ -8,6 +8,9 @@
         <field name="inherit_id" ref="hr_recruitment.hr_applicant_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//page[@name='application_summary']" position="after">
+                <page string="Cover Letter" name="cover letter">
+                    <field name="cover_letter" placeholder="Let's do the Pitch..."/>
+                </page>
                 <page string="Education" name="education">
                     <field name="education_ids">
                         <tree>
@@ -101,10 +104,8 @@
                     </form>
                 </field>
             </page>
-
-
-
             </xpath>
+             
             <xpath expr="//button[@name='create_employee_from_applicant']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
@@ -112,6 +113,11 @@
                 <button name="print_cv_report"
                         type="object"
                         string="Print CV"
+                        class="btn-primary"
+                        icon="fa-print"/>
+                <button name="print_cover_report"
+                        type="object"
+                        string="Print Cover"
                         class="btn-primary"
                         icon="fa-print"/>
             </header>

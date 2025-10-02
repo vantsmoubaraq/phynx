@@ -5,3 +5,4 @@ from . import res_partner
 from . import recruitment
 from . import register
 from . import mail
+from . import crm_lead

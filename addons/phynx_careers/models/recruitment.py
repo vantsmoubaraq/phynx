@@ -10,12 +10,16 @@ class Recruitment(models.Model):
     project_ids = fields.One2many('phynx.project', 'cv_id', string="Projects")
     referee_ids = fields.One2many('phynx.referee', 'cv_id', string="Referees")
     application_id = fields.Many2one('phynx.career', string="Applicant id")
+    cover_letter = fields.Html("Cover Letter")
 
     partner = fields.Many2one("res.partner", "Partner")
 
 
     def print_cv_report(self):
         return self.env.ref('phynx_careers.action_report_cv').report_action(self)
+    
+    def print_cover_report(self):
+        return self.env.ref('phynx_careers.action_report_cover').report_action(self)
     
     def copy(self, default=None):
         default = dict(default or {})

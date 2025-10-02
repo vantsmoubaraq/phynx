@@ -33,6 +33,7 @@ Track applicants and phynx career operations
         'views/cv_report.xml',
         'views/register.xml',
         'data/ir_sequence_data.xml',
+        'views/cover_letter.xml',
         #'security/ir.model.access.csv',
     ],
     # only loaded in demonstration mode
