@@ -14,6 +14,15 @@ class CrmLead(models.Model):
     def message_new(self, msg_dict, custom_values=None):
         custom_values = dict(custom_values or {})
 
+        subject = msg_dict.get("subject", "") or ""
+        # Only proceed if subject contains "Website" or "applications"
+        if not re.search(r"(Website|applications)", subject, re.IGNORECASE):
+            _logger.info("Skipping email, subject did not match filter: %s", subject)
+            return self.create({
+                'name': f"Ignored Email - {subject}",
+                'description': "This email was skipped by filter",
+            })
+
         # Get body (HTML or plain text)
         body = msg_dict.get('body', '')
         # Convert HTML to plain text if needed
@@ -56,15 +65,6 @@ class CrmLead(models.Model):
         custom_values['partner_id'] = False
 
         return super().message_new(msg_dict, custom_values)
-    
-    """def create_client(self):
-        create a new phynx object from current crm lead fields
-        self.env["phynx.career"].create(
-            {
-                "name": self.contact_name,
-                "email": self.email,
-            }
-        )"""
     
     def action_create_client(self):
         """Open phynx.career form with defaults from the lead"""

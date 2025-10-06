@@ -1,4 +1,4 @@
-from odoo import models, fields
+from odoo import models, fields,api
 
 
 class Recruitment(models.Model):
@@ -9,10 +9,17 @@ class Recruitment(models.Model):
     certification_ids = fields.One2many('phynx.certification', 'cv_id', string="Certifications")
     project_ids = fields.One2many('phynx.project', 'cv_id', string="Projects")
     referee_ids = fields.One2many('phynx.referee', 'cv_id', string="Referees")
-    application_id = fields.Many2one('phynx.career', string="Applicant id")
+    application_id = fields.Many2one('phynx.career', string="Applicant name")
     cover_letter = fields.Html("Cover Letter")
 
     partner = fields.Many2one("res.partner", "Partner")
+    partner_name = fields.Char(string="Applicant name", compute="_compute_partner_name", store=True)
+
+    @api.depends("application_id")
+    def _compute_partner_name(self):
+        for rec in self:
+            rec.partner_name = rec.application_id.name or ""
+
 
 
     def print_cv_report(self):

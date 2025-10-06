@@ -85,7 +85,6 @@ class ResPartner(models.Model):
         'context': {
             'create': True,
             'default_partner_id': self.id,
-            'default_partner_name': self.name,
             'default_name': f"Application - {self.name or ''}",
             'default_email_from': self.email,
             'default_email_cc': self.email,

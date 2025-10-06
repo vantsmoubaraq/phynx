@@ -143,4 +143,21 @@
         </field>
     </record>
 
+    <record id="view_hr_applicant_kanban" model="ir.ui.view">
+        <field name="name">hr.applicant.kanban.inherit</field>
+        <field name="model">hr.applicant</field>
+        <field name="inherit_id" ref="hr_recruitment.quick_create_applicant_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="application_id"/>
+            </xpath>
+            <field name="partner_name" position="replace">
+                <field name="partner_name" invisible="1"/>
+            </field>
+            <field name="email_from" position="replace">
+                <field name="email_from" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
 </odoo>
